@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// Main view
 struct FilmsPage: View {
     @StateObject var viewModel = ViewModelOfFilmsPage()
 
@@ -16,6 +15,20 @@ struct FilmsPage: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+//                VStack {
+//                    // ენის არჩევა
+//                    HStack {
+//                        Button("ყველა სერიალი") {
+//                            viewModel.changeLanguage(to: "ka")  // ქართული ენა
+//                        }
+//                        .padding()
+//                        
+//                        Button("ქართული") {
+//                            viewModel.changeLanguage(to: "en")  // ინგლისური ენა
+//                        }
+//                        .padding()
+//                    }
+//                }
                 LazyVGrid(columns: gridItems, spacing: 0) {
                     ForEach(viewModel.movies) { movie in
                         NavigationLink(destination: MovieDetailView(movie: movie)
@@ -25,15 +38,20 @@ struct FilmsPage: View {
                             MovieCell(movie: movie)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .simultaneousGesture(TapGesture().onEnded {
+                            viewModel.impactFeedback()
+                        })
                     }
                 }
-                .padding()
             }
+            .padding([.top, .leading, .trailing])
             .background(Color("MainBackgroundColor"))
+            .scrollIndicators(.hidden)
+            .refreshable {
+                await viewModel.refreshTasks()
+            }
             .onAppear {
-                Task {
-                    viewModel.fetchMovieList()
-                }
+                viewModel.fetchMovieList()
             }
         }
     }
@@ -42,6 +60,7 @@ struct FilmsPage: View {
 // MovieCell view to handle individual movie item
 struct MovieCell: View {
     var movie: Movie
+    var movieOfHomePage: MovieSection?
 
     var body: some View {
         VStack {
@@ -63,6 +82,30 @@ struct MovieCell: View {
     }
 }
 
+// MovieCell view to handle individual movie item
+//struct MovieCellOfHomePage: View {
+//    var movieOfHomePage: MovieSection?
+//
+//    var body: some View {
+//        VStack {
+//            ZStack {
+//                MoviePoster(posterURLString: movieOfHomePage.poster)
+//                VStack {
+//                    if let labelName = movieOfHomePage.label?.name, !labelName.isEmpty {
+//                        LabelName(title: labelName)
+//                    }
+//                    Spacer()
+//                    MovieTitle(title: movieOfHomePage.name)
+//                }
+//            }
+//            Spacer()
+//        }
+//        .frame(width: 120, height: 175)
+//        .cornerRadius(16)
+//        .shadow(radius: 5)
+//    }
+//}
+
 // MoviePoster view to handle the image loading
 struct MoviePoster: View {
     var posterURLString: String?
@@ -79,21 +122,21 @@ struct MoviePoster: View {
                 case .empty:
                     Rectangle()
                         .foregroundStyle(.gray)
-//                        .frame(width: posterWidth, height: posterHeight)
-                        .cornerRadius(16)
+                        .frame(width: posterWidth, height: posterHeight)
+                        .cornerRadius(13)
                 case .success(let image):
                     image
                         .resizable()
                         .scaledToFill()
-//                        .frame(width: posterWidth, height: posterHeight)
-                        .cornerRadius(16)
+                        .frame(width: posterWidth, height: posterHeight)
+                        .cornerRadius(13)
                         .clipped()
                 case .failure:
                     Image(systemName: "photo")
                         .resizable()
                         .scaledToFill()
-//                        .frame(width: posterWidth, height: posterHeight)
-                        .cornerRadius(16)
+                        .frame(width: posterWidth, height: posterHeight)
+                        .cornerRadius(13)
                         .clipped()
                 @unknown default:
                     EmptyView()
@@ -151,7 +194,6 @@ struct LabelName: View {
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
                 .font(.system(size: 12))
-//                .bold()
                 .lineLimit(1)
                 .frame(maxWidth: 105, alignment: .leading)
         }
