@@ -16,20 +16,27 @@ struct ContentView: View {
                 }
             FilmsPage()
                 .tabItem {
-                    Label("ფილმები", image: "FilmsIcon")
+                    Label("ფილმები", systemImage: "film")
                         .foregroundStyle(.white)
                 }
             TvShowsPage()
                 .tabItem {
-                    Label("სერიალები", image: "TvSowsIcon")
+                    Label("სერიალები", systemImage: "list.and.film")
                 }
             CollectionsPage()
                 .tabItem {
-                    Label("კოლექცია", image: "CollectionIcon")
+                    Label("კოლექცია", systemImage: "square.and.arrow.down.fill")
                 }
         }
-        .background(Color("MainBackgroundColor").edgesIgnoringSafeArea(.all)).opacity(0.8)
-//        .accentColor(.white)
+        .accentColor(.white)
+        .onAppear {
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithTransparentBackground() // გამჭვირვალე
+            tabBarAppearance.backgroundColor = .mainBackground.withAlphaComponent(0.8)
+            
+            UITabBar.appearance().standardAppearance = tabBarAppearance
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
     }
 }
 
