@@ -6,7 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6E95201F2D4B4FBE007EF729 /* NetworkService in Frameworks */ = {isa = PBXBuildFile; productRef = 6E95201E2D4B4FBE007EF729 /* NetworkService */; };
+		6E9520212D4B5D03007EF729 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9520202D4B5D03007EF729 /* Profile.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		6E9520202D4B5D03007EF729 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		6ED4252F2D3965AF0042E477 /* caveaPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = caveaPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -23,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E95201F2D4B4FBE007EF729 /* NetworkService in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +39,7 @@
 		6ED425262D3965AF0042E477 = {
 			isa = PBXGroup;
 			children = (
+				6E9520202D4B5D03007EF729 /* Profile.swift */,
 				6ED425312D3965AF0042E477 /* caveaPlus */,
 				6ED425302D3965AF0042E477 /* Products */,
 			);
@@ -65,6 +73,7 @@
 			);
 			name = caveaPlus;
 			packageProductDependencies = (
+				6E95201E2D4B4FBE007EF729 /* NetworkService */,
 			);
 			productName = caveaPlus;
 			productReference = 6ED4252F2D3965AF0042E477 /* caveaPlus.app */;
@@ -94,6 +103,9 @@
 			);
 			mainGroup = 6ED425262D3965AF0042E477;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6E95201D2D4B4FBE007EF729 /* XCRemoteSwiftPackageReference "package" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6ED425302D3965AF0042E477 /* Products */;
 			projectDirPath = "";
@@ -119,6 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E9520212D4B5D03007EF729 /* Profile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +343,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6E95201D2D4B4FBE007EF729 /* XCRemoteSwiftPackageReference "package" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DataRobakidze/package.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6E95201E2D4B4FBE007EF729 /* NetworkService */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E95201D2D4B4FBE007EF729 /* XCRemoteSwiftPackageReference "package" */;
+			productName = NetworkService;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6ED425272D3965AF0042E477 /* Project object */;
 }
